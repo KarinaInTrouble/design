@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design pro</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <body>
+        <!-- Навигационная панель -->
+        <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: blueviolet; color: aliceblue;">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'images/logo.png' %}" alt="Design Pro" height="30"> Design Pro
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Услуги</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#executors">Специалисты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#price-list">Прайс</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#feedback">Связь</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">     </a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                    <!-- Если пользователь авторизован -->
+                    {% if user.is_active and user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'manager' %}">{{ user.username }}</a>
+                    </li>
+                    {% elif user.is_active %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'client' %}">{{ user.username }}</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                    </li>
+                    {% else %}
+                    <!-- Если пользователь не авторизован -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                    </li>
+                    {% endif %}
+                
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Офферная конструкция -->
+        <section class="container my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 id="about-us" >Дизайн-студия Design Pro</h1>
+                    <p>Добро пожаловать в наш мир дизайна, где каждый проект — это уникальное произведение искусства, рожденное из ваших мечтаний и нашего творческого вдохновения.</p>
+                    <p>Наши дизайнеры — мастера создания впечатляющих и неповторимых визуальных решений</p>
+                    <br>
+                    <h4>Цели нашей студии</h4>
+                    <br>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="bi bi-check2 text-success"></i> Воплотить уникальные идеи клиентов в эстетически привлекательные дизайн-концепции.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check2 text-success"></i> Поддерживать инновационные тенденции в графическом дизайне и внедрять их в наши проекты.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check2 text-success"></i> Обеспечить высокий стандарт качества в каждом аспекте нашей творческой работы.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check2 text-success"></i> Создавать долгосрочные партнерства с клиентами, основанные на взаимном доверии и успешных результатов.
+                        </li>
+                    </ul>
+                    <br>
+                    <a class="btn-styled" href="{% url 'login' %}">Заказать дизайн</a>
+                    <br>
+                </div>
+
+                <div class="col-md-6">
+                    <img src="{% static 'images/offer.png' %}" alt="Офферная конструкция" class="img-fluid">
+                </div>
+            </div>
+        </section>
+    
+        <section class="container my-5">
+            <h2 id="services">Услуги</h2>
+            <br>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/s-1.png' %}" class="card-img-top" alt="Услуга 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Логотипы и Брендинг</h5>
+                            <p class="card-text">Мы создаем уникальные логотипы и бренды, которые подчеркивают уникальность вашего бизнеса.</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/s-2.jpg' %}" class="card-img-top" alt="Услуга 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Веб-дизайн</h5>
+                            <p class="card-text">Мы разрабатываем креативные и удобные веб-сайты, подчеркивая ваше онлайн-присутствие.</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/s-3.jpg' %}" class="card-img-top" alt="Услуга 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Дизайн cоциальных Сетей</h5>
+                            <p class="card-text">Привлекайте внимание к вашему бренду через креативные графические материалы в социальных сетях.</p>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    
+
+        <section class="container my-5">
+            <h2 id="executors">Наши специалисты</h2>
+            <br>
+            <div class="row">
+                {% for executor in executors %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card text-center">
+                            <img src="{{ executor.photo.url }}" alt="{{ executor.fullname }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ executor.fullname }}</h5>
+                                <p class="card-text">{{ executor.skills }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </section>
+    
+
+        <section class="container my-5">
+            <h2 id="price-list">Прайс-лист</h2>
+            <br>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/l-1.jpg' %}" class="card-img-top" alt="Логотип">
+                        <div class="card-body">
+                            <h5 class="card-title">Логотип</h5>
+                            <p class="card-text">Уникальный и запоминающийся логотип для вашего бренда.</p>
+                            <p class="card-text">Цена: <strong>$500</strong></p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/l-2.jpg' %}" class="card-img-top" alt="Брендинг">
+                        <div class="card-body">
+                            <h5 class="card-title">Брендинг</h5>
+                            <p class="card-text">Разработка уникального стиля для вашего бренда.</p>
+                            <p class="card-text">Цена: <strong>$800</strong></p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/l-3.jpg' %}" class="card-img-top" alt="Оформление Instagram">
+                        <div class="card-body">
+                            <h5 class="card-title">Оформление Instagram</h5>
+                            <p class="card-text">Создание стильного дизайна для вашего Instagram аккаунта.</p>
+                            <p class="card-text">Цена: <strong>$300</strong></p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/l-4.jpg' %}" class="card-img-top" alt="Web-дизайн на Tilda">
+                        <div class="card-body">
+                            <h5 class="card-title">Web-дизайн на Tilda</h5>
+                            <p class="card-text">Создание красивого и функционального веб-дизайна на платформе Tilda.</p>
+                            <p class="card-text">Цена: <strong>$600</strong></p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/l-5.jpg' %}" class="card-img-top" alt="Графический дизайн">
+                        <div class="card-body">
+                            <h5 class="card-title">Графический дизайн</h5>
+                            <p class="card-text">Разработка различных графических элементов для вашего бизнеса.</p>
+                            <p class="card-text">Цена: <strong>$400</strong></p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/l-6.jpg' %}" class="card-img-top" alt="Разработка web-приложения">
+                        <div class="card-body">
+                            <h5 class="card-title">Разработка web-приложения</h5>
+                            <p class="card-text">Создание современного и удобного веб-приложения для вашего бизнеса.</p>
+                            <p class="card-text">Цена: <strong>$1200</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="container my-5">
+            <h2 id="feedback">Обратная связь</h2>
+            <br>
+            <form class = "feedback" method="post" action="#">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                    {{ form.as_p }}
+                    <br>
+                    <button type="submit" class="btn-styled">Отправить</button>
+                    </div>
+
+                    <div class="col-md-6">
+                    <img src="{% static 'images/feedback.png' %}" alt="Изображение" class="img-fluid">
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <footer class="bg-light text-center py-3">
+            <p>&copy; 2023 Design Pro. Все права защищены.</p>
+        </footer>
+    
+    
+</body>
+</html>

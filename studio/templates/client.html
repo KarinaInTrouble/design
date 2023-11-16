@@ -1,6 +1,26 @@
 {% extends 'style.html' %}
 {% load static %}
 
+
+{% block nav_block %}
+
+
+<li class="nav-item">
+  <a class="nav-link" href="#">Оформить заявку</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#">Мои заявки</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#">Обработка заявок</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+</li>
+
+
+{% endblock %}
+
 {% block content %}
 
 <br>

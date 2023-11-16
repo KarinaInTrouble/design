@@ -1,0 +1,93 @@
+{% extends 'style.html' %}
+{% load static %}
+
+
+
+{% block nav_block %}
+
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'requests' %}">Панель заявок</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'executors' %}">Панель исполнителей</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'feedback' %}">Панель обратной связи</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+</li>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <form method="post" action="{% url 'executors' %}" class="col-md-5" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br>
+            <br>
+            <h3 class="text-center">Добавить исполнителя</h3>
+            <br>
+            <div class="mb-3">
+                <label for="id_fullname" class="form-label">ФИО</label>
+                <input type="text" name="fullname" class="form-control" id="id_fullname" placeholder="Введите ФИО" required>
+            </div>
+    
+            <div class="mb-3">
+                <label for="id_photo" class="form-label">Фото</label>
+                <input type="file" name="photo" class="form-control" id="id_photo" required>
+            </div>
+    
+            <div class="mb-3">
+                <label for="id_bio" class="form-label">Биография</label>
+                <textarea name="bio" class="form-control" id="id_bio" placeholder="Введите биографию" required></textarea>
+            </div>
+    
+            <div class="mb-3">
+                <label for="id_skills" class="form-label">Навыки</label>
+                <input type="text" name="skills" class="form-control" id="id_skills" placeholder="Введите навыки" required>
+            </div>
+    
+            <button type="submit" class="btn-styled">Добавить</button>
+            <br>
+            <br>
+        </form>
+        <div class="col-md-7">
+            <br>
+            <br>
+            <form method="get" action="{% url 'executors' %}" class="col-md-8">
+                <div class="mb-3">
+                    <label for="search" class="form-label">Поиск</label>
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Введите имя либо фамилию" value="{{ request.GET.search }}">
+                </div>
+                <button type="submit" class="btn-styled">Искать</button>
+            </form>
+            <br>
+            {% for executor in execs %}
+            <div class="col-md-8 mb-4">
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="{{ executor.photo.url }}" class="img-fluid rounded-start" alt="{{ executor.fullname }}">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ executor.fullname }}</h5>
+                      <p class="card-text">{{ executor.skills }}</p>
+                      <div class="card-footer">
+                        <a href="{% url 'delete_executor' pk=executor.pk %}" class="btn btn-danger">Удалить</a>
+                        <a href="{% url 'edit_executor' pk=executor.pk %}" class="btn btn-primary">Изменить</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

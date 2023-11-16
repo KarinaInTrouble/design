@@ -27,5 +27,10 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+class ExecutorForm(forms.ModelForm):
+    class Meta:
+        model = Executor
+        fields = ['fullname', 'photo', 'bio', 'skills']
+
 
 

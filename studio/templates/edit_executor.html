@@ -1,0 +1,44 @@
+{% extends 'style.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+<br>
+<br>
+<div class="row justify-content-center">
+<br>
+<form method="post" action="{% url 'edit_executor' executor.id %}" class="col-md-5" enctype="multipart/form-data" class="col-md-6">
+    {% csrf_token %}
+    <br>
+    <h2>Редактирование исполнителя: {{ executor.fullname }}</h2>
+    <br>
+    <div class="mb-3">
+        <label for="id_fullname" class="form-label">ФИО</label>
+        <input type="text" name="fullname" class="form-control" id="id_fullname" value="{{ executor.fullname }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="id_photo" class="form-label">Фото</label>
+        <input type="file" name="photo" class="form-control" id="id_photo">
+    </div>
+
+    <div class="mb-3">
+        <label for="id_bio" class="form-label">Биография</label>
+        <textarea name="bio" class="form-control" id="id_bio" required>{{ executor.bio }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="id_skills" class="form-label">Навыки</label>
+        <input type="text" name="skills" class="form-control" id="id_skills" value="{{ executor.skills }}" required>
+    </div>
+
+    <button type="submit" class="btn-styled">Сохранить</button>
+    <br>
+    <br>
+</form>
+</div>
+</div>
+
+{% endblock %}

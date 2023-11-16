@@ -22,6 +22,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('', index, name='index'),
+    path('manager/requests/', requests, name='requests'),
+    path('manager/executors/', executors, name='executors'),
+    path('manager/executors/<int:pk>/delete/', delete_executor, name='delete_executor'),
+    path('manager/executors/<int:pk>/edit/', edit_executor, name='edit_executor'),
+    path('manager/feedback/', feedback_list, name='feedback'),
+    path('manager/feedback/<int:pk>/delete/', delete_feedback, name='delete_feedback'),
     path('client/', client, name='client'),
     path('manager/', manager, name='manager'),
     path('register/', registration_view, name='register'),

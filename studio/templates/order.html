@@ -23,22 +23,27 @@
 
 {% block content %}
 
-<br>
-<br>
-
-<div class="container text-center">
+<div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <img src="{% static 'images/client.png' %}" alt="Клиент" class="img-fluid mb-4">
-        <h3>Добро пожаловать, {{user.username}}</h3>
-        <p>Ваша роль: Клиент</p>
-        <br>
-        <a class="btn-styled" href="{% url 'index' %}">Вернуться на главную</a>
-      </div>
+    <form method="post" action="{% url 'order' %}" class="col-md-5" enctype="multipart/form-data">
+      {% csrf_token %}
+      <br>
+      <br>
+      <h3 class="text-center">Отправить заявку</h3>
+      <br>
+      {{ form.as_p }}
+      <br>
+      <button type="submit" class="btn-styled">Отправить</button>
+      <br>
+      <br>
+    </form>
+    <div class="col-md-6">
+    <br>
+    <br>
+    <img src="{% static 'images/request.png' %}" alt="Изображение" class="img-fluid">
     </div>
-</div>
+    </div>
 
-
-
+  </div>
 
 {% endblock %}

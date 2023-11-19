@@ -1,7 +1,4 @@
 {% extends 'style.html' %}
-{% load static %}
-
-
 
 {% block nav_block %}
 
@@ -21,23 +18,17 @@
 {% endblock %}
 
 {% block content %}
-
-<br>
-<br>
-
-<div class="container text-center">
+  <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <img src="{% static 'images/manager.png' %}" alt="Выход из аккаунта" class="img-fluid mb-4">
-        <h3>Добро пожаловать, {{user.username}}</h3>
-        <p>Ваша роль: Менеджер</p>
-        <br>
-        <a class="btn-styled" href="{% url 'index' %}">Вернуться на главную</a>
-      </div>
-    </div>
+    <h3 class="text-center mb-3">Назначение исполнителя и установка статуса заказа</h3>
+    <h5 class="text-center mb-3">Заказ {{ order.id }}</h5>
+
+    <form method="post" action="" class="col-md-6">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn-styled">Сохранить</button>
+    </form>
 </div>
 
-
-
-
+  </div>
 {% endblock %}

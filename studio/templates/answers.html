@@ -1,0 +1,65 @@
+{% extends 'style.html' %}
+{% load static %}
+
+
+{% block nav_block %}
+
+
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'order' %}">Оформить заявку</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'myorders' %}">Мои заявки</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'answers' %}">Обработка заявок</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+</li>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center mb-3">Обработанные заявки</h3>
+
+    {% for order in processed_orders %}
+      <div class="card mb-3">
+        <div class="card-header bg-success-subtle">
+          <strong>ФИО:</strong> {{ order.client.fullname }}<br>
+          <strong>Почта:</strong> {{ order.client.email }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><strong>Категория проекта:</strong> {{ order.client.category.name }}</h5>
+          <p class="card-text"><strong>Описание проекта:</strong> {{ order.client.project_description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Исполнитель:</strong> {% if order.assigned_executor %}{{ order.assigned_executor.fullname }}{% else %}Не назначен{% endif %}</li>
+          <li class="list-group-item"><strong>Статус заявки:</strong> {{ order.get_status_display }}</li>
+        </ul>
+      </div>
+    {% endfor %}
+
+    <div class="pagination">
+      <span class="step-links">
+          {% if processed_orders.has_previous %}
+              <a class="btn-styled" href="?page=1">&laquo; первая</a>
+              <a class="btn-styled" href="?page={{ processed_orders.previous_page_number }}">предыдущая</a>
+          {% endif %}
+
+          <span class="current">
+              Страница {{ processed_orders.number }} из {{ processed_orders.paginator.num_pages }}.
+          </span>
+
+          {% if processed_orders.has_next %}
+              <a class="btn-styled" href="?page={{ processed_orders.next_page_number }}">следующая</a>
+              <a class="btn-styled" href="?page={{ processed_orders.paginator.num_pages }}">последняя &raquo;</a>
+          {% endif %}
+      </span>
+    </div>
+
+  </div>
+
+{% endblock %}

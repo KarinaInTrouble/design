@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Neue Machina';
     src: url('{% static "fonts/NeueMachina-Medium.woff2" %}') format('woff2');
@@ -35,5 +36,6 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, li, ul, ol, input, button, textar
 .btn-styled:hover {
     transform: scale(1.1);
 }
+
 
 

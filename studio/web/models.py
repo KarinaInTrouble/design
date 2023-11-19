@@ -54,7 +54,7 @@ class Executor(models.Model):
     skills = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.fullname
+        return f"{self.fullname} - {self.skills}"
     
     class Meta:
         verbose_name_plural = 'Исполнитель'

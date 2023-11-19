@@ -1,0 +1,79 @@
+{% extends 'style.html' %}
+{% load static %}
+
+
+{% block nav_block %}
+
+
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'order' %}">Оформить заявку</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'myorders' %}">Мои заявки</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'answers' %}">Обработка заявок</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+</li>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center mb-3">Список заявок</h3>
+
+    <form method="get" action="{% url 'myorders' %}">
+      <div class="mb-3">
+        <label for="categoryFilter">Фильтр по категории:</label>
+        <select name="category" class="form-control" id="categoryFilter">
+          <option value="" {% if not category_filter %}selected{% endif %}>Все</option>
+          {% for category in categories %}
+            <option value="{{ category.name }}" {% if category_filter == category.name %}selected{% endif %}>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn-styled">Применить</button>
+    </form>
+    <br>
+
+        {% for request in requests %}
+        <br>
+            <div class="card">
+              <h5 class="card-header bg-success-subtle">{{ request.fullname }}</h5>
+              <div class="card-body">
+                <h5 class="card-title">{{ request.category.name }}</h5>
+                <p class="card-text">{{ request.project_description }}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Email:</strong> {{ request.email }}</li>
+                <li class="list-group-item"><strong>Дата создания:</strong> {{ request.timestamp }}</li>
+              </ul>
+              <div class="card-body">
+                <a href="{% url 'delete_request' request.id %}" class="btn btn-danger">Удалить</a>
+              </div>
+          </div>
+        {% endfor %}
+
+
+    <div class="mt-3">
+      {% if requests.has_other_pages %}
+        <ul class="pagination">
+          {% if requests.has_previous %}
+            <li class="page-item"><a class="btn-styled" href="?page={{ requests.previous_page_number }}">Предыдущая</a></li>
+          {% endif %}
+          {% for i in requests.paginator.page_range %}
+            <li class="page-item {% if requests.number == i %}active{% endif %}"><a class="btn-styled" href="?page={{ i }}">{{ i }}</a></li>
+          {% endfor %}
+          {% if requests.has_next %}
+            <li class="page-item"><a class="btn-styled" href="?page={{ requests.next_page_number }}">Следующая</a></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+
+  </div>
+
+{% endblock %}
